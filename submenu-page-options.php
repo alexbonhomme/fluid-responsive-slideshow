@@ -1,11 +1,11 @@
-<?php 
+<?php
 /**
  * save options
  */
 if($_POST && isset($_POST['pjc_slideshow_options']))
 {
 	update_option('pjc_slideshow_options', $_POST['pjc_slideshow_options']);
-	
+
 	$location = admin_url("edit.php?post_type=pjc_slideshow&page=frs-setting-page&tab=$current&settings-updated=true");
 	echo "<meta http-equiv='refresh' content='0;url=$location' />";
 	echo "<h2>Loading...</h2>";
@@ -79,7 +79,7 @@ if($_POST && isset($_POST['pjc_slideshow_options']))
 		border-bottom: 1px solid #EEE;
 		background-color: #F6F6F6;
 		padding: 10px;
-		font-size: 14px;		
+		font-size: 14px;
 	}
 
 	@media (max-width: 767px) {
@@ -104,9 +104,9 @@ jQuery(document).ready(function($){
 </script>
 
 <div id="preview_slide" style="margin:25px 20px;">
-<?php 
+<?php
 	$attr['slide_type'] = $current;
-	echo pjc_gallery_print($attr) 
+	echo pjc_gallery_print($attr)
 ?>
 </div>
 
@@ -118,7 +118,7 @@ jQuery(document).ready(function($){
 
 	$dir =  dirname(__FILE__)."/skins";
 
-	
+
 	if(! isset($options[$current]['skin']))
 			$options[$current]['skin']="frs-skin-default";
 
@@ -129,8 +129,8 @@ jQuery(document).ready(function($){
 
 	foreach ($skins as $key => $value) {
 
-		$extension = pathinfo($value, PATHINFO_EXTENSION); 
-		$filename = pathinfo($value, PATHINFO_FILENAME); 
+		$extension = pathinfo($value, PATHINFO_EXTENSION);
+		$filename = pathinfo($value, PATHINFO_FILENAME);
 		$extension = strtolower($extension);
 		$the_value = strtolower($filename);
 		$filename_ucwords = str_replace('-', ' ', ucwords($filename));
@@ -140,7 +140,7 @@ jQuery(document).ready(function($){
 		if($extension=='css'){
 			$data = array(
 					"label"=>"$filename_ucwords",
-					"value"=>"$the_value"								
+					"value"=>"$the_value"
 
 				);
 
@@ -149,17 +149,17 @@ jQuery(document).ready(function($){
 		}
 	}
 
-	if(function_exists('is_frs_premium_exist')) 
+	if(function_exists('is_frs_premium_exist'))
 	{
-		
+
 		$dir =  ABSPATH . 'wp-content/plugins/'.FRS_PREMIUM_DIR_NAME.'/skins';
 
 		$skins = scandir($dir);
 
 		foreach ($skins as $key => $value) {
 
-			$extension = pathinfo($value, PATHINFO_EXTENSION); 
-			$filename = pathinfo($value, PATHINFO_FILENAME); 
+			$extension = pathinfo($value, PATHINFO_EXTENSION);
+			$filename = pathinfo($value, PATHINFO_FILENAME);
 			$extension = strtolower($extension);
 			$the_value = strtolower($filename);
 			$filename_ucwords = str_replace('-', ' ', $filename);
@@ -189,7 +189,7 @@ jQuery(document).ready(function($){
 					"id"=>"tonjoo-frs-skin"
 				);
 
-	
+
 	frs_print_select_option($option_select);
 ?>
 
@@ -198,11 +198,11 @@ jQuery(document).ready(function($){
 		<td>
 			<select name="pjc_slideshow_options<?php echo "[$current][animation]"?>">
 				<?php
-				
-					$navigation = array(									
+
+					$navigation = array(
 						'0' => array(
 							'value' =>	'horizontal-slide',
-							'label' =>  'Horizontal Slide' 
+							'label' =>  'Horizontal Slide'
 						),
 						'1' => array(
 							'value' =>	'vertical-slide',
@@ -213,8 +213,8 @@ jQuery(document).ready(function($){
 							'label' =>  'Fade'
 						)
 					);
-					
-				
+
+
 					$selected = $options[$current]["animation"];
 					$r = '';
 
@@ -241,7 +241,7 @@ jQuery(document).ready(function($){
 			<label class="description" >Slider width</label>
 		</td>
 	</tr>
-			
+
 	<tr valign="top">
 		<th scope="row">Base Height</th>
 		<td>
@@ -257,19 +257,19 @@ jQuery(document).ready(function($){
 		<td>
 			<select name="pjc_slideshow_options<?php echo "[$current][full_width]"?>">
 				<?php
-				
-					$full_width = array(									
+
+					$full_width = array(
 						'0' => array(
 							'value' =>	'false',
-							'label' =>  'No' 
+							'label' =>  'No'
 						),
 						'1' => array(
 							'value' =>	'true',
 							'label' =>  'Yes'
 						)
 					);
-					
-				
+
+
 					$selected = $options[$current]["full_width"];
 					$r = '';
 
@@ -305,7 +305,7 @@ jQuery(document).ready(function($){
 
 	<tr><td colspan=2><h3 class="meta-subtitle">Text Box</h3></td></tr>
 
-	 <?php 
+	 <?php
 
 	$slideshow_select = array(
 						'0' => array(
@@ -314,7 +314,7 @@ jQuery(document).ready(function($){
 						),
 						'1' => array(
 							'value' =>	'false',
-							'label' =>  'No' 
+							'label' =>  'No'
 						)
 					);
 
@@ -328,10 +328,10 @@ jQuery(document).ready(function($){
 					"id"=>"tonjoo-frs-is-show-textbox"
 				);
 
-	
+
 	 frs_print_select_option($option_select);
 	?>
-	
+
 	<tr valign="top">
 		<th scope="row">Title Size</th>
 		<td>
@@ -371,7 +371,7 @@ jQuery(document).ready(function($){
 		<td>
 			<select name="pjc_slideshow_options<?php echo "[$current][pause]"?>">
 				<?php
-				
+
 					$navigation = array(
 						'0' => array(
 							'value' =>	'true',
@@ -379,11 +379,11 @@ jQuery(document).ready(function($){
 						),
 						'1' => array(
 							'value' =>	'false',
-							'label' =>  'No' 
+							'label' =>  'No'
 						)
 					);
-					
-				
+
+
 					$selected = $options[$current]["pause"];
 					$r = '';
 
@@ -405,7 +405,7 @@ jQuery(document).ready(function($){
 		<td>
 			<select name="pjc_slideshow_options<?php echo "[$current][start_mouseout]"?>">
 				<?php
-				
+
 					$navigation = array(
 						'0' => array(
 							'value' =>	'true',
@@ -413,11 +413,11 @@ jQuery(document).ready(function($){
 						),
 						'1' => array(
 							'value' =>	'false',
-							'label' =>  'No' 
+							'label' =>  'No'
 						)
 					);
-					
-				
+
+
 					$selected = $options[$current]["start_mouseout"];
 					$r = '';
 
@@ -449,7 +449,7 @@ jQuery(document).ready(function($){
 		<td>
 			<select name="pjc_slideshow_options<?php echo "[$current][show_timer]"?>">
 				<?php
-				
+
 					$navigation = array(
 						'0' => array(
 							'value' =>	'true',
@@ -457,11 +457,11 @@ jQuery(document).ready(function($){
 						),
 						'1' => array(
 							'value' =>	'false',
-							'label' =>  'No' 
+							'label' =>  'No'
 						)
 					);
-					
-				
+
+
 					$selected = $options[$current]["show_timer"];
 					$r = '';
 
@@ -486,7 +486,7 @@ jQuery(document).ready(function($){
 		<td>
 			<select name="pjc_slideshow_options<?php echo "[$current][navigation]"?>">
 				<?php
-				
+
 					$navigation = array(
 						'0' => array(
 							'value' =>	'true',
@@ -494,11 +494,11 @@ jQuery(document).ready(function($){
 						),
 						'1' => array(
 							'value' =>	'false',
-							'label' =>  'No' 
+							'label' =>  'No'
 						)
 					);
-					
-				
+
+
 					$selected = $options[$current]["navigation"];
 					$r = '';
 
@@ -523,7 +523,7 @@ jQuery(document).ready(function($){
 		<td>
 			<select name="pjc_slideshow_options<?php echo "[$current][bullet]"?>">
 				<?php
-				
+
 					$navigation = array(
 						'0' => array(
 							'value' =>	'true',
@@ -531,11 +531,11 @@ jQuery(document).ready(function($){
 						),
 						'1' => array(
 							'value' =>	'false',
-							'label' =>  'No' 
+							'label' =>  'No'
 						)
 					);
-					
-				
+
+
 					$selected = $options[$current]["bullet"];
 					$r = '';
 
@@ -572,9 +572,9 @@ jQuery(document).ready(function($){
 					});
 				});
 			</script>
-			
+
 			<style type="text/css">
-				#ace-editor { 
+				#ace-editor {
 			        width: 100%;
 			        height:350px;
 			        margin-left: auto;
@@ -587,7 +587,7 @@ jQuery(document).ready(function($){
 			    }
 			</style>
 
-			<?php 
+			<?php
 				$default_custom_css = ".frs-slideshow-container#".$attr['slide_type']."pjc {
 	margin-top: 25px;
 	margin-bottom: 75px;
@@ -611,15 +611,15 @@ jQuery(document).ready(function($){
 
 <br>
 <br>
-<input type="submit" class="button button-primary button-frs" value="<?php _e('Save Options', 'pjc_slideshow_options'); ?>" />			
-</div>			
-</div>			
-</div>			
-</div>			
+<input type="submit" class="button button-primary button-frs" value="<?php _e('Save Options', 'pjc_slideshow_options'); ?>" />
+</div>
+</div>
+</div>
+</div>
 
 
 <div class="postbox-container" style="float: right;margin-right: -300px;width: 280px;">
-<div class="metabox-holder" style="padding-top:0px;">	
+<div class="metabox-holder" style="padding-top:0px;">
 <div class="meta-box-sortables ui-sortable">
 	<div id="email-signup" class="postbox">
 		<h3 class="hndle"><span>Save Options</span></h3>
@@ -628,135 +628,13 @@ jQuery(document).ready(function($){
 			<br>
 			<br>
 			<input type="submit" class="button button-primary button-frs" value="<?php _e('Save Options', 'pjc_slideshow_options'); ?>" data-step="7" data-intro="Save your changes to apply the options" />
-			
+
 		</div>
 	</div>
-
-	<!-- ADS -->
-	<?php
-		$options = get_option('pjc_slideshow_license');
-		$license = isset($options['license_status']) ? unserialize($options['license_status']) : false;	
-		if(!$license || !$license['status'] || !function_exists('is_frs_premium_exist')):
-	?>
-
-		<div class="postbox">			
-		<script type="text/javascript">
-			/**
-			 * Setiap dicopy-paste, yang find dan dirubah adalah
-			 * - var pluginName
-			 * - premium_exist
-			 */
-
-			jQuery(function($){					
-				var pluginName = "frs";
-				var url = 'https://tonjoostudio.com/jsonp/?promo=get&plugin=' + pluginName;
-				var promoFirst = new Array();
-				var promoSecond = new Array();
-
-				<?php if(function_exists('is_frs_premium_exist')): ?>
-				var url = 'https://tonjoostudio.com/jsonp/?promo=get&plugin=' + pluginName + '&premium=true';
-				<?php endif ?>
-
-				// strpos function
-				function strpos(haystack, needle, offset) {
-					var i = (haystack + '')
-						.indexOf(needle, (offset || 0));
-					return i === -1 ? false : i;
-				}
-
-				$.ajax({url: url, dataType:'jsonp'}).done(function(data){
-					
-					if(typeof data =='object')
-					{
-						var fristImg, fristUrl;
-
-					    // looping jsonp object
-						$.each(data, function(index, value){
-
-							<?php if(! function_exists('is_frs_premium_exist')): ?>
-
-							fristImg = pluginName + '-premium-img';
-							fristUrl = pluginName + '-premium-url';
-
-							// promoFirst
-							if(index == fristImg)
-						    {
-						    	promoFirst['img'] = value;
-						    }
-
-						    if(index == fristUrl)
-						    {
-						    	promoFirst['url'] = value;
-						    }
-
-						    <?php else: ?>
-
-						    if(! fristImg)
-						    {
-						    	// promoFirst
-								if(strpos(index, "-img"))
-							    {
-							    	promoFirst['img'] = value;
-
-							    	fristImg = index;
-							    }
-
-							    if(strpos(index, "-url"))
-							    {
-							    	promoFirst['url'] = value;
-
-							    	fristUrl = index;
-							    }
-						    }
-
-						    <?php endif; ?>
-
-							// promoSecond
-							if(strpos(index, "-img") && index != fristImg)
-						    {
-						    	promoSecond['img'] = value;
-						    }
-
-						    if(strpos(index, "-url") && index != fristUrl)
-						    {
-						    	promoSecond['url'] = value;
-						    }
-						});
-
-						//promo_1
-						$("#promo_1 img").attr("src",promoFirst['img']);
-						$("#promo_1 a").attr("href",promoFirst['url']);
-
-						//promo_2
-						$("#promo_2 img").attr("src",promoSecond['img']);
-						$("#promo_2 a").attr("href",promoSecond['url']);
-					}
-				});
-			});
-		</script>
-
-		<!-- <h3 class="hndle"><span>This may interest you</span></h3> -->
-		<div class="inside" style="margin: 23px 10px 6px 10px;">
-			<div id="promo_1" style="text-align: center;padding-bottom:17px;">
-				<a href="https://tonjoostudio.com" target="_blank">
-					<img src="<?php echo plugins_url(FRS_DIR_NAME."/assets/loading-big.gif") ?>" width="100%" <?php if(! function_exists('is_frs_premium_exist')): ?> data-step="8" data-intro="If you like this slider, please consider the premium version to support us and get all the skins.<b>Fluid Responsive Slideshow</b> !" <?php endif ?>>
-				</a>
-			</div>
-			<div id="promo_2" style="text-align: center;">
-				<a href="https://tonjoostudio.com" target="_blank">
-					<img src="<?php echo plugins_url(FRS_DIR_NAME."/assets/loading-big.gif") ?>" width="100%">
-				</a>
-			</div>
-		</div>
-
-	</div>
-
-	<?php endif; ?>
-
 </div>
 </div>
-</div>	
+</div>
 
 </div>
 
-</form>	
+</form>

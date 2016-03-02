@@ -15,7 +15,7 @@
 	}
 </style>
 
-<script type="text/javascript">	
+<script type="text/javascript">
 	current_frs_slide_type = '<?php echo $term_id ?>'
 </script>
 
@@ -28,7 +28,7 @@
 </h3>
 <div class="inside" style="z-index:1;">
 
-<?php 
+<?php
 
 global $post;
 
@@ -74,7 +74,7 @@ $zeroHide = '';
 	<h2>The slide type seems empty ! </h2><br><a frs-add-slide  class='button button-primary'>Create First Slide</a><span class="spinner frs-button-spinner" ></span>
 </div>
 
-<?php 
+<?php
 	$id = null ;
 
 	if($id==null){
@@ -82,13 +82,13 @@ $zeroHide = '';
 	}
 ?>
 
-</div>			
-</div>			
-</div>			
-</div>		
+</div>
+</div>
+</div>
+</div>
 
 <div class="postbox-container" style="float: right;margin-right: -300px;width: 280px;">
-<div class="metabox-holder" style="padding-top:0px;">	
+<div class="metabox-holder" style="padding-top:0px;">
 <div class="meta-box-sortables ui-sortable">
 	<div id="email-signup" class="postbox">
 		<h3 class="hndle"><span>Create New Slide</span></h3>
@@ -100,128 +100,6 @@ $zeroHide = '';
 			<span class="spinner frs-button-spinner" ></span>
 		</div>
 	</div>
-
-	<!-- ADS -->
-	<?php
-		$options = get_option('pjc_slideshow_license');
-		$license = isset($options['license_status']) ? unserialize($options['license_status']) : false;	
-		if(!$license || !$license['status'] || !function_exists('is_frs_premium_exist')):
-	?>
-
-		<div class="postbox">			
-		<script type="text/javascript">
-			/**
-			 * Setiap dicopy-paste, yang find dan dirubah adalah
-			 * - var pluginName
-			 * - premium_exist
-			 */
-
-			jQuery(function($){					
-				var pluginName = "frs";
-				var url = 'https://tonjoostudio.com/jsonp/?promo=get&plugin=' + pluginName;
-				var promoFirst = new Array();
-				var promoSecond = new Array();
-
-				<?php if(function_exists('is_frs_premium_exist')): ?>
-				var url = 'https://tonjoostudio.com/jsonp/?promo=get&plugin=' + pluginName + '&premium=true';
-				<?php endif ?>
-
-				// strpos function
-				function strpos(haystack, needle, offset) {
-					var i = (haystack + '')
-						.indexOf(needle, (offset || 0));
-					return i === -1 ? false : i;
-				}
-
-				$.ajax({url: url, dataType:'jsonp'}).done(function(data){
-					
-					if(typeof data =='object')
-					{
-						var fristImg, fristUrl;
-
-					    // looping jsonp object
-						$.each(data, function(index, value){
-
-							<?php if(! function_exists('is_frs_premium_exist')): ?>
-
-							fristImg = pluginName + '-premium-img';
-							fristUrl = pluginName + '-premium-url';
-
-							// promoFirst
-							if(index == fristImg)
-						    {
-						    	promoFirst['img'] = value;
-						    }
-
-						    if(index == fristUrl)
-						    {
-						    	promoFirst['url'] = value;
-						    }
-
-						    <?php else: ?>
-
-						    if(! fristImg)
-						    {
-						    	// promoFirst
-								if(strpos(index, "-img"))
-							    {
-							    	promoFirst['img'] = value;
-
-							    	fristImg = index;
-							    }
-
-							    if(strpos(index, "-url"))
-							    {
-							    	promoFirst['url'] = value;
-
-							    	fristUrl = index;
-							    }
-						    }
-
-						    <?php endif; ?>
-
-							// promoSecond
-							if(strpos(index, "-img") && index != fristImg)
-						    {
-						    	promoSecond['img'] = value;
-						    }
-
-						    if(strpos(index, "-url") && index != fristUrl)
-						    {
-						    	promoSecond['url'] = value;
-						    }
-						});
-
-						//promo_1
-						$("#promo_1 img").attr("src",promoFirst['img']);
-						$("#promo_1 a").attr("href",promoFirst['url']);
-
-						//promo_2
-						$("#promo_2 img").attr("src",promoSecond['img']);
-						$("#promo_2 a").attr("href",promoSecond['url']);
-					}
-				});
-			});
-		</script>
-
-		<!-- <h3 class="hndle"><span>This may interest you</span></h3> -->
-		<div class="inside" style="margin: 23px 10px 6px 10px;">
-			<div id="promo_1" style="text-align: center;padding-bottom:17px;">
-				<a href="https://tonjoostudio.com" target="_blank">
-					<img src="<?php echo plugins_url(FRS_DIR_NAME."/assets/loading-big.gif") ?>" width="100%" <?php if(! function_exists('is_frs_premium_exist')): ?> data-step="8" data-intro="If you like this slider, please consider the premium version to support us and get all the skins.<b>Fluid Responsive Slideshow</b> !" <?php endif ?>>
-				</a>
-			</div>
-			<div id="promo_2" style="text-align: center;">
-				<a href="https://tonjoostudio.com" target="_blank">
-					<img src="<?php echo plugins_url(FRS_DIR_NAME."/assets/loading-big.gif") ?>" width="100%">
-				</a>
-			</div>
-		</div>
-
-	</div>
-
-	<?php endif; ?>
-
 </div>
 </div>
 </div>
@@ -249,10 +127,10 @@ $zeroHide = '';
 							<div>
 				      			<input type="button" class="button-primary button-frs button" mediauploadbutton="" value="Set image">
 				      			<a class="button-frs button button-danger" frs-remove-image="" data-image-default="">Remove Image</a>
-							</div>		
-						</div>	
-						<div data-step="10" data-intro="Put your content <br>The content can be text or HTML">	
-							<?php 
+							</div>
+						</div>
+						<div data-step="10" data-intro="Put your content <br>The content can be text or HTML">
+							<?php
 								$settings = array(
 											'textarea_rows' => '30',
 											'media_buttons' => false);
@@ -267,11 +145,11 @@ $zeroHide = '';
 		<div class="floating-modal-button">
 			<a class="button-frs button button-danger" data-post-id="" frs-delete-slide="">Delete Slide</a>
 			<a class="button button-frs button-primary" frs-save-slider="" data-post-id="" data-step="12" data-intro="Don't forget to save your work">Save Slide</a>
-			<span class="spinner frs-button-spinner frs-button-spinner-modal "></span>								
-			
+			<span class="spinner frs-button-spinner frs-button-spinner-modal "></span>
+
 			<a class="button frs-modal-close" frs-modal-close-modal="">Cancel</a>
 		</div>
-	</div>	
+	</div>
 </div>
 
 <?php else: ?>
@@ -288,16 +166,16 @@ $zeroHide = '';
 					</div>
 
 					<div class="frs-table-right">
-						<input type="text" name="title" id="frs-title" placeholder="Slider Title" value="">							
+						<input type="text" name="title" id="frs-title" placeholder="Slider Title" value="">
 						<div frs-mediauploader="" style="margin:10px 0;">
 							<img media-upload-image="" src="" class="frs-modal-image">
 							<input media-upload-id="" type="hidden" name="featured_image" value="">
 							<div>
 				      			<input type="button" class="button-primary button-frs button" mediauploadbutton="" value="Set image">
 				      			<a class="button-frs button button-danger" frs-remove-image="" data-image-default="">Remove Image</a>
-							</div>		
-						</div>		
-						<?php 
+							</div>
+						</div>
+						<?php
 							$settings = array(
 										'textarea_rows' => '30',
 										'media_buttons' => false);
@@ -311,11 +189,11 @@ $zeroHide = '';
 		<div class="floating-modal-button">
 			<a class="button-frs button button-danger" data-post-id="" frs-delete-slide="">Delete Slide</a>
 			<a class="button button-frs button-primary" frs-save-slider="" data-post-id="">Save Slide</a>
-			<span class="spinner frs-button-spinner frs-button-spinner-modal "></span>								
-			
+			<span class="spinner frs-button-spinner frs-button-spinner-modal "></span>
+
 			<a class="button frs-modal-close" frs-modal-close-modal="">Cancel</a>
 		</div>
-	</div>	
+	</div>
 </div>
 
 
