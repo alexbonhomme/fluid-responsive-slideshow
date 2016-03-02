@@ -594,7 +594,6 @@ function pjc_gallery_print($attr)
 				$caption .= "<div class='frs-caption-outer' style='$outer_style'>";
 				$caption .= "<div class='frs-caption-inner' style='text-align:$text_align $inner_style'>";
 				$caption .= "<div class='frs-caption-content' style='$frs_caption_content_style'>";
-				$caption .= "<h4 style='$style_h4'>{$post->post_title}</h4>";
 
 				/* output buffering */
 
