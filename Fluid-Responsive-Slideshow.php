@@ -3,7 +3,7 @@
  * Plugin Name: Fluid Responsive Slideshow
  * Plugin URI: https://www.tonjoostudio.com/wordpress-plugin-fluid-responsive-slideshow-plugin/
  * Description: Fluid and Responsive Slideshow for wordpress.
- * Version: 2.2.0
+ * Version: 2.2.5
  * Author: tonjoo
  * Author URI: https://www.tonjoostudio.com/
  * License: GPLv2
@@ -12,7 +12,8 @@
  */																																										
 
 define('FRS_DIR_NAME', str_replace("/Fluid-Responsive-Slideshow.php", "", plugin_basename(__FILE__)));
-define('FRS_VERSION','2.2.0');
+define('FRS_VERSION','2.2.5');
+define("FRS_HTTP_PROTO", is_ssl() ? "https://" : "http://");
 
 require_once( plugin_dir_path( __FILE__ ) . 'shortcode.php');
 require_once( plugin_dir_path( __FILE__ ) . 'post-list.php');
@@ -212,9 +213,9 @@ function frs_admin_footer()
 		?>
 
 		<script type="text/javascript">
-			jQuery(document).ready(function() {
-			  	jQuery('#insertFRS').on('click', function() {
-				  	var slug = jQuery('#frs-select option:selected').val();
+			jQuery(document).ready(function($) {
+			  	$('#insertFRS').on('click', function() {
+				  	var slug = $('#frs-select option:selected').val();
 				  	window.send_to_editor('[pjc_slideshow slide_type="' + slug + '"]');
 					tb_remove();
 			  	})
@@ -297,9 +298,9 @@ function frs_set_default_values( $post_content, $post )
     return $post_content;
 }
 
-add_action( 'template_redirect', 'wpse_128636_redirect_post' );
+add_action( 'template_redirect', 'frs_action_template_redirect' );
 
-function wpse_128636_redirect_post() 
+function frs_action_template_redirect() 
 {
     $queried_post_type = get_query_var('post_type');
     if ( is_single() && 'pjc_slideshow' ==  $queried_post_type ) {
@@ -368,4 +369,101 @@ function frs_print_select_option($options)
                     ";
 
     echo $print_select;
+}
+
+/** 
+ * Display a notice that can be dismissed 
+ */
+add_action('admin_notices', 'frs_premium_notice');
+function frs_premium_notice() 
+{
+    global $current_user ;
+
+    $user_id = $current_user->ID;
+    $ignore_notice = get_user_meta($user_id, 'frs_premium_ignore_notice', true);
+    $ignore_count_notice = get_user_meta($user_id, 'frs_premium_ignore_count_notice', true);
+    $max_count_notice = 15;
+
+    // if usermeta(ignore_count_notice) is not exist
+    if($ignore_count_notice == "")
+    {
+        add_user_meta($user_id, 'frs_premium_ignore_count_notice', $max_count_notice, true);
+
+        $ignore_count_notice = 0;
+    }
+
+    // display the notice or not
+    if($ignore_notice == 'forever')
+    {
+        $is_ignore_notice = true;
+    }
+    else if($ignore_notice == 'later' && $ignore_count_notice < $max_count_notice)
+    {
+        $is_ignore_notice = true;
+
+        update_user_meta($user_id, 'frs_premium_ignore_count_notice', intval($ignore_count_notice) + 1);
+    }
+    else
+    {
+        $is_ignore_notice = false;
+    }
+
+    /* Check that the user hasn't already clicked to ignore the message & if premium not installed */
+    if (! $is_ignore_notice  && ! function_exists("is_frs_premium_exist")) 
+    {
+        echo '<div class="updated"><p>';
+
+        printf(__('Unlock more preset , themes and layer editor. %1$s Get all features of Sangar Slider Pro ! %2$s Do not bug me again %3$s Not Now %4$s',FRS_VERSION), 
+            '<a href="http://sangarslider.com/" target="_blank">', 
+            '</a><span style="float:right;"><a href="?frs_premium_nag_ignore=forever" style="color:#a00;">', 
+            '</a> <a href="?frs_premium_nag_ignore=later" class="button button-primary" style="margin:-5px -5px 0 5px;vertical-align:baseline;">',
+            '</a></span>');
+        
+        echo "</p></div>";
+    }
+}
+
+add_action('admin_init', 'frs_premium_nag_ignore');
+function frs_premium_nag_ignore() 
+{
+    global $current_user;
+    $user_id = $current_user->ID;
+
+    // If user clicks to ignore the notice, add that to their user meta
+    if (isset($_GET['frs_premium_nag_ignore']) && $_GET['frs_premium_nag_ignore'] == 'forever') 
+    {
+        update_user_meta($user_id, 'frs_premium_ignore_notice', 'forever');
+
+        /**
+         * Redirect
+         */
+        $location = admin_url("admin.php?page=frs-setting-page") . '&settings-updated=true';
+        echo "<meta http-equiv='refresh' content='0;url=$location' />";
+        echo "<h2>Loading...</h2>";
+        exit();
+    }
+    else if (isset($_GET['frs_premium_nag_ignore']) && $_GET['frs_premium_nag_ignore'] == 'later') 
+    {
+        update_user_meta($user_id, 'frs_premium_ignore_notice', 'later');
+        update_user_meta($user_id, 'frs_premium_ignore_count_notice', 0);
+
+        $total_ignore_notice = get_user_meta($user_id, 'frs_premium_ignore_count_notice_total', true); 
+
+        if($total_ignore_notice == '') $total_ignore_notice = 0;
+
+        update_user_meta($user_id, 'frs_premium_ignore_count_notice_total', intval($total_ignore_notice) + 1);
+
+        if(intval($total_ignore_notice) >= 5)
+        {
+            update_user_meta($user_id, 'frs_premium_ignore_notice', 'forever');
+        }
+
+        /**
+         * Redirect
+         */
+        $location = admin_url("admin.php?page=frs-setting-page") . '&settings-updated=true';
+        echo "<meta http-equiv='refresh' content='0;url=$location' />";
+        echo "<h2>Loading...</h2>";
+        exit();
+    }
 }

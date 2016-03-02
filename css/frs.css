@@ -12,13 +12,13 @@
 }
 
 .frs-slideshow-container .frs-slideshow-content {
-
+  
     background: #FFFFFF url('frs/loading.gif') no-repeat center center;
     /*overflow: hidden;*/
 }
 
 .frs-slideshow-container .frs-slideshow-content  > div >  div:first-child{
-    position: relative;
+    position: relative;    
 }
 
 .frs-slideshow-container .frs-slideshow-content  > div >  div > div.frs-caption {
@@ -54,10 +54,10 @@
 
 .frs-slideshow-content > img,
 .frs-slideshow-content > div,
-.frs-slideshow-content > a { display: none }
+.frs-slideshow-content > a { display: none } 
 
 
-/* Note: If your slider only uses content or anchors, you're going to want to put the width and height declarations on the ".frs>div" and "div.frs>a" tags in addition to just the .frs-wrapper
+/* Note: If your slider only uses content or anchors, you're going to want to put the width and height declarations on the ".frs>div" and "div.frs>a" tags in addition to just the .frs-wrapper 
 /* TIMER
  ================================================== */
 .frs-slideshow-container div.frs-timer {
@@ -121,7 +121,7 @@
 
 /* CAPTIONS
  ================================================== */
-.frs-slideshow-container span.frs-caption
+.frs-slideshow-container span.frs-caption 
 {
     display: none;
     height: 0px;
@@ -134,13 +134,13 @@
 
 .frs-slideshow-container{
     width:100%;
-    /*margin-bottom:75px;
+    /*margin-bottom:75px;    
     margin-top:25px;
     min-height:250px;*/
 }
 
 @media (max-width:320px){
-
+  
   .frs-slideshow-container{
       min-height:150px;
   }
@@ -168,8 +168,8 @@
   -ms-interpolation-mode: bicubic;
 }
 
-.frs-slideshow-container .frs-timer,
-.frs-slideshow-container .frs-slider-nav,
+.frs-slideshow-container .frs-timer, 
+.frs-slideshow-container .frs-slider-nav, 
 .frs-slideshow-container .frs-bullets-wrapper {
     display: none;
     line-height: normal;
@@ -192,7 +192,7 @@
 }
 
 .frs-slideshow-container .frs-wrapper.frs-responsive-mobile-small .frs-caption .frs-caption-content p{
-    text-align: center !important;
+    text-align: center !important;    
     font-size: 12px !important;
 }
 
@@ -223,7 +223,7 @@
 }
 
 .frs-slideshow-container .frs-wrapper.frs-responsive-mobile-medium .frs-caption .frs-caption-content p{
-    text-align: center !important;
+    text-align: center !important;    
     font-size: 14px;
 }
 
@@ -246,9 +246,7 @@
 /**
  * buttton
  */
-a.frs-caption-button {
-    margin-top: 15px;
-    margin-bottom: 0px;
+p.frs-caption-button a span {  
     white-space: nowrap;
 }
 
@@ -260,7 +258,7 @@ a.frs-caption-button {
 }
 
 #frs-position-preview-outer {
-    height: 250px;
+    height: 250px;    
     background-color: #d9cb9e;
     padding: 40px;
 }
@@ -286,7 +284,7 @@ a.frs-caption-button {
 }
 
 #frs-position-preview-padding-right {
-    position: absolute; margin-top: 115px;
+    position: absolute; margin-top: 115px; 
     margin-right: 40px; font-size: 16px;
     right: 0;
     width: 40px;
@@ -294,7 +292,7 @@ a.frs-caption-button {
 }
 
 #frs-position-preview-padding-bottom {
-    position: absolute;
+    position: absolute; 
     margin-top: 260px; font-size: 16px; text-align: center; left: 0; right: 0;
     margin-left: auto; */ /* margin-right: auto; */;
     margin-right: auto;

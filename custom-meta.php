@@ -10,9 +10,9 @@ add_action( 'add_meta_boxes', 'tonjoo_slideshow_add_custom_box' );
 add_action( 'save_post', 'tonjoo_slideshow_save_postdata' );
 
 /* Adds a box to the main column on the Post and Page edit screens */
-function tonjoo_slideshow_add_custom_box()
-{
-    add_meta_box(
+function tonjoo_slideshow_add_custom_box() 
+{    
+    add_meta_box( 
         'tonjoo_slideshow_meta',
         'Slide Options',
         'tonjoo_slideshow_meta',
@@ -24,7 +24,7 @@ function tonjoo_slideshow_add_custom_box()
 
 
 /* Prints the box content */
-function tonjoo_slideshow_meta( $post )
+function tonjoo_slideshow_meta( $post ) 
 {
     // Use nonce for verification
     wp_nonce_field( plugin_basename( __FILE__ ), 'tonjoo_slideshow_noncename' );
@@ -43,12 +43,12 @@ function tonjoo_slideshow_meta( $post )
 
     if(!$order_number)
         $order_number=0;
-
+     
     if($postmeta=='')
         $postmeta=array();
 
     if(!array_key_exists('show_text',$postmeta))
-        $postmeta['show_text']='true';
+        $postmeta['show_text']='yes';
 
     if (!isset($postmeta["slider_bg"] ))
         $postmeta["slider_bg"] = "#000000";
@@ -69,7 +69,7 @@ function tonjoo_slideshow_meta( $post )
         $postmeta['title_color']="ffffff";
 
     if(!array_key_exists('show_button',$postmeta))
-        $postmeta['show_button']='false';
+        $postmeta['show_button']='yes';
 
     if(!array_key_exists('button_skin',$postmeta))
         $postmeta['button_skin']="frs-buttonskin-white";
@@ -81,7 +81,7 @@ function tonjoo_slideshow_meta( $post )
         $postmeta['button_href']="#";
 
     if (!isset($postmeta["bg_textbox_type"] ))
-        $postmeta["bg_textbox_type"] = "css";
+        $postmeta["bg_textbox_type"] = "picture";
 
     if (!isset($postmeta["textbox_bg"] ))
         $postmeta["textbox_bg"] = "black";
@@ -97,11 +97,9 @@ function tonjoo_slideshow_meta( $post )
 
     ?>
     <script type="text/javascript">
-
-        jQuery(document).ready(function(){
-            jQuery('INPUT.minicolors').minicolors();
-        });
-
+        jQuery(document).ready(function($){
+            $('INPUT.minicolors').minicolors();
+        })
     </script>
 
     <style>
@@ -121,7 +119,7 @@ function tonjoo_slideshow_meta( $post )
             vertical-align: middle;
         }
 
-        <?php
+        <?php    
             if($postmeta['bg_textbox_type']=='picture')
                 echo "
                 #textbox_color{
@@ -134,7 +132,7 @@ function tonjoo_slideshow_meta( $post )
                     display:none;
                 }";
 
-            if($postmeta['bg_textbox_type']=='none' || $postmeta['bg_textbox_type']=='css')
+            if($postmeta['bg_textbox_type']=='none')
                 echo "
                 #tonjoo-frs-textbox-bg{
                     display:none;
@@ -142,7 +140,6 @@ function tonjoo_slideshow_meta( $post )
                 #textbox_color{
                     display:none;
                 }";
-
 
             if($postmeta['padding_type']=='auto')
                 echo "
@@ -178,8 +175,11 @@ function tonjoo_slideshow_meta( $post )
 
         .meta-subtitle {
             margin: 0px -22px !important;
-            border-top:1px solid rgb(238, 238, 238);
-            background-color:#f6f6f6;
+            border-top: 1px solid #EEE;
+            border-bottom: 1px solid #EEE;
+            background-color: #F6F6F6;
+            padding: 10px;
+            font-size: 14px;        
         }
 
         @media (max-width: 767px) {
@@ -226,10 +226,10 @@ function tonjoo_slideshow_meta( $post )
     <!-- Always default value, ordering from slideshow-->
     <input type="hidden" name="tonjoo_frs_order_number" value="<?php esc_attr_e($order_number); ?>" />
 
-
+   
     <div style="clear:both;"></div>
 
-    <div class="settings-container">
+    <div class="settings-container">      
 
         <!-- Text Box Position -->
         <div class="widgets-holder-wrap exclude">
@@ -253,7 +253,7 @@ function tonjoo_slideshow_meta( $post )
                     </td>
                 </tr>
 
-                <?php
+                <?php 
                     $text_position = array(
                                         '0' => array(
                                             'value' =>  'frs-caption-position-left',
@@ -273,31 +273,31 @@ function tonjoo_slideshow_meta( $post )
                                         ),
                                         '4' => array(
                                             'value' =>  'frs-caption-position-right',
-                                            'label' =>  'Right'
+                                            'label' =>  'Right' 
                                         ),
                                         '5' => array(
                                             'value' =>  'frs-caption-position-bottom-right',
-                                            'label' =>  'Bottom Right'
+                                            'label' =>  'Bottom Right' 
                                         ),
                                         '6' => array(
                                             'value' =>  'frs-caption-position-bottom',
-                                            'label' =>  'Bottom'
+                                            'label' =>  'Bottom' 
                                         ),
                                         '7' => array(
                                             'value' =>  'frs-caption-position-bottom-left',
-                                            'label' =>  'Bottom Left'
+                                            'label' =>  'Bottom Left' 
                                         ),
                                         '8' => array(
                                             'value' =>  'frs-caption-position-center',
-                                            'label' =>  'Center'
+                                            'label' =>  'Center' 
                                         ),
                                         '9' => array(
                                             'value' =>  'frs-caption-position-sticky-top',
-                                            'label' =>  'Sticky Top'
+                                            'label' =>  'Sticky Top' 
                                         ),
                                         '10' => array(
                                             'value' =>  'frs-caption-position-sticky-bottom',
-                                            'label' =>  'Sticky Bottom'
+                                            'label' =>  'Sticky Bottom' 
                                         )
                                     );
 
@@ -310,11 +310,11 @@ function tonjoo_slideshow_meta( $post )
                                         "select_array" => $text_position,
                                         "id"=>"tonjoo-frs-text_position"
                                     );
-
+                      
                     frs_print_select_option($option_select);
                 ?>
 
-                <?php
+                <?php 
                     $textbox_width = array(
                                         '0' => array(
                                             'value' =>  1,
@@ -322,47 +322,47 @@ function tonjoo_slideshow_meta( $post )
                                         ),
                                         '1' => array(
                                             'value' =>  2,
-                                            'label' =>  '2 / 12'
+                                            'label' =>  '2 / 12' 
                                         ),
                                         '2' => array(
                                             'value' =>  3,
-                                            'label' =>  '3 / 12'
+                                            'label' =>  '3 / 12' 
                                         ),
                                         '3' => array(
                                             'value' =>  4,
-                                            'label' =>  '4 / 12'
+                                            'label' =>  '4 / 12' 
                                         ),
                                         '4' => array(
                                             'value' =>  5,
-                                            'label' =>  '5 / 12'
+                                            'label' =>  '5 / 12' 
                                         ),
                                         '5' => array(
                                             'value' =>  6,
-                                            'label' =>  '6 / 12'
+                                            'label' =>  '6 / 12' 
                                         ),
                                         '6' => array(
                                             'value' =>  7,
-                                            'label' =>  '7 / 12'
+                                            'label' =>  '7 / 12' 
                                         ),
                                         '7' => array(
                                             'value' =>  8,
-                                            'label' =>  '8 / 12'
+                                            'label' =>  '8 / 12' 
                                         ),
                                         '8' => array(
                                             'value' =>  9,
-                                            'label' =>  '9 / 12'
+                                            'label' =>  '9 / 12' 
                                         ),
                                         '9' => array(
                                             'value' =>  10,
-                                            'label' =>  '10 / 12'
+                                            'label' =>  '10 / 12' 
                                         ),
                                         '10' => array(
                                             'value' =>  11,
-                                            'label' =>  '11 / 12'
+                                            'label' =>  '11 / 12' 
                                         ),
                                         '11' => array(
                                             'value' =>  12,
-                                            'label' =>  '12 / 12'
+                                            'label' =>  '12 / 12' 
                                         )
                                     );
 
@@ -376,7 +376,7 @@ function tonjoo_slideshow_meta( $post )
                                         "id"=>"tonjoo-frs-textbox_width"
                                     );
 
-
+                    
                     frs_print_select_option($option_select);
                 ?>
 
@@ -401,7 +401,7 @@ function tonjoo_slideshow_meta( $post )
                                             "select_array" => $padding_type,
                                             "id"=>"tonjoo-frs-padding_type"
                                         );
-
+                    
                     frs_print_select_option($option_select);
                 ?>
 
@@ -420,7 +420,7 @@ function tonjoo_slideshow_meta( $post )
                         <span>Height:</span>
                         <input type="number" name="dimensions[height]" id="height" value="400">
                     </label>
-                </div>
+                </div> 
                 -->
             </div>
         </div>
@@ -433,7 +433,7 @@ function tonjoo_slideshow_meta( $post )
             </div>
             <div class="sidebar-content widgets-sortables clearfix">
                 <table class="table-content">
-                    <?php
+                    <?php 
                         $dir =  dirname(__FILE__)."/buttons";
 
                         $skins = scandir($dir);
@@ -442,8 +442,8 @@ function tonjoo_slideshow_meta( $post )
 
                         foreach ($skins as $key => $value) {
 
-                            $extension = pathinfo($value, PATHINFO_EXTENSION);
-                            $filename = pathinfo($value, PATHINFO_FILENAME);
+                            $extension = pathinfo($value, PATHINFO_EXTENSION); 
+                            $filename = pathinfo($value, PATHINFO_FILENAME); 
                             $extension = strtolower($extension);
                             $the_value = strtolower($filename);
                             $filename_ucwords = str_replace('-', ' ', ucwords($filename));
@@ -453,7 +453,7 @@ function tonjoo_slideshow_meta( $post )
                             if($extension=='css'){
                                 $data = array(
                                         "label"=>"$filename_ucwords",
-                                        "value"=>"$the_value"
+                                        "value"=>"$the_value"                               
 
                                     );
 
@@ -462,16 +462,16 @@ function tonjoo_slideshow_meta( $post )
                             }
                         }
 
-                        if(function_exists('is_frs_premium_exist'))
-                        {
+                        if(function_exists('is_frs_premium_exist')) 
+                        {                
                             $dir =  ABSPATH . 'wp-content/plugins/'.FRS_PREMIUM_DIR_NAME.'/buttons';
 
                             $skins = scandir($dir);
 
                             foreach ($skins as $key => $value) {
 
-                                $extension = pathinfo($value, PATHINFO_EXTENSION);
-                                $filename = pathinfo($value, PATHINFO_FILENAME);
+                                $extension = pathinfo($value, PATHINFO_EXTENSION); 
+                                $filename = pathinfo($value, PATHINFO_FILENAME); 
                                 $extension = strtolower($extension);
                                 $the_value = strtolower($filename);
                                 $filename_ucwords = str_replace('-', ' ', $filename);
@@ -502,7 +502,7 @@ function tonjoo_slideshow_meta( $post )
                                         "id"=>"tonjoo-frs-button_skin"
                                     );
 
-
+                        
                         frs_print_select_option($option_select);
                     ?>
 
@@ -530,7 +530,7 @@ function tonjoo_slideshow_meta( $post )
             </div>
             <div class="sidebar-content widgets-sortables clearfix">
                 <table class="table-content">
-                    <?php
+                    <?php 
                         $bg_textbox_type = array(
                                             '0' => array(
                                                     'value' =>  'picture',
@@ -538,15 +538,11 @@ function tonjoo_slideshow_meta( $post )
                                                 ),
                                             '1' => array(
                                                     'value' =>  'color',
-                                                    'label' =>  'Solid Color'
+                                                    'label' =>  'Solid Color' 
                                                 ),
                                             '2' => array(
                                                     'value' =>  'none',
-                                                    'label' =>  'None'
-                                                ),
-                                            '3' => array(
-                                                    'value' =>  'css',
-                                                    'label' =>  'CSS based'
+                                                    'label' =>  'None' 
                                                 )
                                             );
 
@@ -558,9 +554,9 @@ function tonjoo_slideshow_meta( $post )
                                             "select_array" => $bg_textbox_type,
                                             "id"=>"tonjoo-frs-bg-textbox-type"
                                         );
-
+                        
                         frs_print_select_option($option_select);
-
+                        
 
                     ?>
 
@@ -571,17 +567,17 @@ function tonjoo_slideshow_meta( $post )
 
                         $textbox_bg =  array();
 
-                        foreach ($backgrounds as $key => $value)
+                        foreach ($backgrounds as $key => $value) 
                         {
-                            $extension = pathinfo($value, PATHINFO_EXTENSION);
-                            $filename = ucwords(pathinfo($value, PATHINFO_FILENAME));
+                            $extension = pathinfo($value, PATHINFO_EXTENSION); 
+                            $filename = ucwords(pathinfo($value, PATHINFO_FILENAME)); 
                             $extension = strtolower($extension);
                             $the_value = strtolower($filename);
 
                             if($extension=='png'){
                                 $data = array(
                                     "label"=>"$filename",
-                                    "value"=>"$the_value"
+                                    "value"=>"$the_value" 
                                 );
 
                                 array_push($textbox_bg,$data);
@@ -596,7 +592,7 @@ function tonjoo_slideshow_meta( $post )
                                             "select_array" => $textbox_bg,
                                             "id"=>"tonjoo-frs-textbox-bg"
                                         );
-
+                        
                         frs_print_select_option($option_select);
                     ?>
 
@@ -619,7 +615,7 @@ function tonjoo_slideshow_meta( $post )
             </div>
             <div class="sidebar-content widgets-sortables clearfix">
                 <table class="table-content">
-                    <?php
+                    <?php 
                         $text_align = array(
                                         '0' => array(
                                             'value' =>  'left',
@@ -627,11 +623,11 @@ function tonjoo_slideshow_meta( $post )
                                         ),
                                         '1' => array(
                                             'value' =>  'center',
-                                            'label' =>  'Center'
+                                            'label' =>  'Center' 
                                         ),
                                         '2' => array(
                                             'value' =>  'right',
-                                            'label' =>  'Right'
+                                            'label' =>  'Right' 
                                         )
                                 );
 
@@ -645,7 +641,7 @@ function tonjoo_slideshow_meta( $post )
                                             "id"=>"tonjoo-frs-text_align"
                                         );
 
-
+                        
                         frs_print_select_option($option_select);
                     ?>
                     <th scope="row">Title Color</th>
@@ -701,7 +697,7 @@ function tonjoo_slideshow_meta( $post )
                                             ),
                                         '1' => array(
                                             'value' =>  'false',
-                                            'label' =>  'No'
+                                            'label' =>  'No' 
                                         )
                                     );
 
@@ -713,11 +709,11 @@ function tonjoo_slideshow_meta( $post )
                             "select_array" => $show_text,
                             "id"=>"tonjoo-frs-show_text"
                         );
-
+                        
                         frs_print_select_option($option_select);
                     ?>
 
-                    <?php
+                    <?php 
                         $show_button = array(
                                         '0' => array(
                                             'value' =>  'true',
@@ -725,7 +721,7 @@ function tonjoo_slideshow_meta( $post )
                                         ),
                                         '1' => array(
                                             'value' =>  'false',
-                                            'label' =>  'No'
+                                            'label' =>  'No' 
                                         )
                                     );
 
@@ -739,7 +735,7 @@ function tonjoo_slideshow_meta( $post )
                                             "id"=>"tonjoo-frs-show_button"
                                         );
 
-
+                        
                         frs_print_select_option($option_select);
                     ?>
                 </table>
@@ -748,18 +744,18 @@ function tonjoo_slideshow_meta( $post )
 
     </div>
 
-<?php
+<?php 
 
 } /* end function */
 
 
 /* When the post is saved, saves our custom data */
-function tonjoo_slideshow_save_postdata( $post_id)
+function tonjoo_slideshow_save_postdata( $post_id) 
 {
 
-    // verify if this is an auto save routine.
+    // verify if this is an auto save routine. 
     // If it is our form has not been submitted, so we dont want to do anything
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE )
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) 
         return;
 
     // verify this came from the our screen and with proper authorization,
@@ -771,21 +767,21 @@ function tonjoo_slideshow_save_postdata( $post_id)
 
     // Check permissions
     if(isset($_POST['post_type'])){
-         if ( 'page' == $_POST['post_type'] )
+         if ( 'page' == $_POST['post_type'] ) 
         {
             if ( !current_user_can( 'edit_page', $post_id ) ) return;
         }
         else
         {
             if ( !current_user_can( 'edit_post', $post_id ) ) return;
-        }
+        }   
     }
 
     // OK, we're authenticated: we need to find and save the data
 
     //if saving in a custom table, get post_ID
     // $post_ID = $_POST['post_ID'];
-
+    
     $post_meta = $_POST['tonjoo_frs_meta'];
 
     // foreach ($mydata as $key => $value) {
@@ -808,7 +804,7 @@ function tonjoo_slideshow_save_postdata( $post_id)
 
     update_post_meta($post_id,'tonjoo_frs_meta', $post_meta);
 
-    //update order number
+    //update order number 
 
     $order_number = $_POST['tonjoo_frs_order_number'];
 
