@@ -544,6 +544,11 @@ function pjc_gallery_print($attr)
 				{
 					$textbox_style .= 'background: url("'.plugins_url("backgrounds/$textbox_bg.png" , __FILE__ ).'") repeat scroll 0% 0% transparent !important;';
 				}
+				elseif ($bg_textbox_type == "none")
+				{
+					$textbox_style .= 'background: none !important;';
+				}
+				// else CSS based
 
 				/* frs-caption-content style */
 

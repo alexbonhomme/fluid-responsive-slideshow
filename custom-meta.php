@@ -81,7 +81,7 @@ function tonjoo_slideshow_meta( $post )
         $postmeta['button_href']="#";
 
     if (!isset($postmeta["bg_textbox_type"] ))
-        $postmeta["bg_textbox_type"] = "none";
+        $postmeta["bg_textbox_type"] = "css";
 
     if (!isset($postmeta["textbox_bg"] ))
         $postmeta["textbox_bg"] = "black";
@@ -134,7 +134,7 @@ function tonjoo_slideshow_meta( $post )
                     display:none;
                 }";
 
-            if($postmeta['bg_textbox_type']=='none')
+            if($postmeta['bg_textbox_type']=='none' || $postmeta['bg_textbox_type']=='css')
                 echo "
                 #tonjoo-frs-textbox-bg{
                     display:none;
@@ -142,6 +142,7 @@ function tonjoo_slideshow_meta( $post )
                 #textbox_color{
                     display:none;
                 }";
+
 
             if($postmeta['padding_type']=='auto')
                 echo "
@@ -542,6 +543,10 @@ function tonjoo_slideshow_meta( $post )
                                             '2' => array(
                                                     'value' =>  'none',
                                                     'label' =>  'None'
+                                                ),
+                                            '3' => array(
+                                                    'value' =>  'css',
+                                                    'label' =>  'CSS based'
                                                 )
                                             );
 
