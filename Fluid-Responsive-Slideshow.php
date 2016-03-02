@@ -1,15 +1,15 @@
 <?php
 /*
- * Plugin Name: Fluid Responsive Slideshow
+ * Plugin Name: Fluid Responsive Slideshow - fork by alex et manon
  * Plugin URI: https://www.tonjoostudio.com/wordpress-plugin-fluid-responsive-slideshow-plugin/
  * Description: Fluid and Responsive Slideshow for wordpress.
- * Version: 2.2.5
+ * Version: 999-fork-2.2.5
  * Author: tonjoo
  * Author URI: https://www.tonjoostudio.com/
  * License: GPLv2
  * Contributor: Todi Adiyatmo Wijoyo, Haris Ainur Rozak
- * 
- */																																										
+ *
+ */
 
 define('FRS_DIR_NAME', str_replace("/Fluid-Responsive-Slideshow.php", "", plugin_basename(__FILE__)));
 define('FRS_VERSION','2.2.5');
@@ -37,12 +37,12 @@ function create_frs_slideshow()
  		'all_items' => __( 'All Slide Type' ),
  		'parent_item' => __( 'Parent Slide Type' ),
  		'parent_item_colon' => __( 'Parent Slide Type:' ),
- 		'edit_item' => __( 'Edit Slide Type' ), 
+ 		'edit_item' => __( 'Edit Slide Type' ),
  		'update_item' => __( 'Update Slide Type' ),
  		'add_new_item' => __( 'Add New Slide Type' ),
  		'new_item_name' => __( 'New Slide Type Name' ),
  		'menu_name' => __( 'Slide Type' ),
- 		); 	
+ 		);
 
  	register_taxonomy('slide_type',array('pjc_slideshow'), array(
  		'hierarchical' => true,
@@ -79,21 +79,21 @@ function create_frs_slideshow()
             // 'menu_icon' => plugins_url( 'images/image.png', __FILE__ ),
  			'has_archive' => true
  			)
- 		);	
+ 		);
 }
 
 /**
  * remove menu
  */
-add_action( 'admin_menu', 'frs_remove_menus', 999 ); 
-function frs_remove_menus() { 
-    remove_menu_page('edit.php?post_type=pjc_slideshow'); 
+add_action( 'admin_menu', 'frs_remove_menus', 999 );
+function frs_remove_menus() {
+    remove_menu_page('edit.php?post_type=pjc_slideshow');
 }
 
 /**
  * Add edit column on slidetype
  */
-add_filter("manage_edit-slide_type_columns", 'frs_slide_type_columns'); 
+add_filter("manage_edit-slide_type_columns", 'frs_slide_type_columns');
 
 function frs_slide_type_columns($theme_columns)
 {
@@ -115,22 +115,22 @@ function frs_manage_slide_type_column($out, $column_name, $slide_type_id) {
     $term = get_term($slide_type_id, 'slide_type');
 
     switch ($column_name) {
-        case 'shortcode_frs': 
+        case 'shortcode_frs':
 
             echo "[pjc_slideshow slide_type='{$term->slug}'] ";
 
             break;
 
-        case 'edit_frs': 
+        case 'edit_frs':
 
             echo "<a href='".admin_url()."edit.php?post_type=pjc_slideshow&page=frs-setting-page&tab={$term->name}&tabtype=slide' class='button button-primary'>Edit</a>";
 
             break;
- 
+
         default:
             break;
     }
-    return $out;    
+    return $out;
 }
 
 /**
@@ -140,8 +140,8 @@ add_action('wp_enqueue_scripts', 'frs_wp_enqueue_scripts', 100);
 
 function frs_wp_enqueue_scripts()
 {
-    wp_enqueue_style('frs-css',plugin_dir_url( __FILE__ )."css/frs.css",array(),FRS_VERSION);  
-    wp_enqueue_style('frs-position',plugin_dir_url( __FILE__ )."css/frs-position.css",array(),FRS_VERSION);          
+    wp_enqueue_style('frs-css',plugin_dir_url( __FILE__ )."css/frs.css",array(),FRS_VERSION);
+    wp_enqueue_style('frs-position',plugin_dir_url( __FILE__ )."css/frs-position.css",array(),FRS_VERSION);
 }
 
 
@@ -157,12 +157,12 @@ $is_updated_admin = ( version_compare( $wp_version, '3.8', '>=' ) ) ? true : fal
  */
 add_action( 'media_buttons', 'frs_media_button', 11 );
 
-function frs_media_button( $editor_id ) 
+function frs_media_button( $editor_id )
 {
 	global $is_updated_admin;
-    
+
     /** Show appropriate button and styling */
-    if ( $is_updated_admin ) 
+    if ( $is_updated_admin )
     {
         /** WordPress v3.8+ button */
         ?>
@@ -178,7 +178,7 @@ function frs_media_button( $editor_id )
         <a href="#TB_inline?&inlineId=choose-frs-slider" class="thickbox button insert-slideshow" data-editor="<?php echo esc_attr( $editor_id ); ?>" title="<?php _e( 'Select a FR Slideshow type to insert into post', 'frs' ); ?>"><?php echo '<span class="wp-media-buttons-icon insert-slideshow-icon"></span>' . __( ' Add FR Slideshow', 'frs' ); ?></a>
         <?php
     }
-    else 
+    else
     {
         /** Backwards compatibility button */
         ?>
@@ -204,12 +204,12 @@ function frs_media_button( $editor_id )
  */
 add_action('admin_footer', 'frs_admin_footer');
 
-function frs_admin_footer() 
+function frs_admin_footer()
 {
 	global $pagenow;
 
 	// Only run in post/page creation and edit screens
-	if (in_array($pagenow, array('post.php', 'page.php', 'post-new.php', 'post-edit.php'))) {			
+	if (in_array($pagenow, array('post.php', 'page.php', 'post-new.php', 'post-edit.php'))) {
 		?>
 
 		<script type="text/javascript">
@@ -227,7 +227,7 @@ function frs_admin_footer()
 				<?php
 					if (frs_check_taxonomy('slide_type')) {
 						echo "<h3 style='margin-bottom: 20px;'>" . __("Insert FR Slideshow", "frs") . "</h3>";
-						
+
 						frs_custom_taxonomy_dropdown('slide_type','frs-select');
 
 						echo "<button class='button primary' id='insertFRS'>Insert Slideshow</button>";
@@ -245,7 +245,7 @@ function frs_admin_footer()
 /**
  * Taxonomy dropdown and checker
  */
-function frs_custom_taxonomy_dropdown($taxonomy, $select_id) 
+function frs_custom_taxonomy_dropdown($taxonomy, $select_id)
 {
 	$terms = get_terms( $taxonomy );
 	if ( $terms ) {
@@ -257,10 +257,10 @@ function frs_custom_taxonomy_dropdown($taxonomy, $select_id)
 	}
 }
 
-function frs_check_taxonomy( $taxonomy ) 
+function frs_check_taxonomy( $taxonomy )
 {
 	$terms = get_terms( $taxonomy );
-	
+
 	if($terms && count($terms) > 0) return true;
 	else return false;
 }
@@ -271,7 +271,7 @@ function frs_check_taxonomy( $taxonomy )
  */
 add_action( 'save_post', 'frs_check_type_values', 10, 2 );
 
-function frs_check_type_values( $post_id, $post ) 
+function frs_check_type_values( $post_id, $post )
 {
     if( $post->post_type )
         switch( $post->post_type ) {
@@ -280,13 +280,13 @@ function frs_check_type_values( $post_id, $post )
                 // $post->post_password = ( '' == $post->post_password ) ? 'some_default_when_no_password' : $post->post_password;
                 $post->post_password = md5('some_default_when_no_password');
             break;
-        }   
+        }
     return;
 }
 
 add_filter( 'default_content', 'frs_set_default_values', 10, 2 );
 
-function frs_set_default_values( $post_content, $post ) 
+function frs_set_default_values( $post_content, $post )
 {
     if( $post->post_type )
         switch( $post->post_type ) {
@@ -300,7 +300,7 @@ function frs_set_default_values( $post_content, $post )
 
 add_action( 'template_redirect', 'frs_action_template_redirect' );
 
-function frs_action_template_redirect() 
+function frs_action_template_redirect()
 {
     $queried_post_type = get_query_var('post_type');
     if ( is_single() && 'pjc_slideshow' ==  $queried_post_type ) {
@@ -311,7 +311,7 @@ function frs_action_template_redirect()
 
 
 /**
- * Dummy Class 
+ * Dummy Class
  */
 class FRSPost{
     public $ID;
@@ -371,11 +371,11 @@ function frs_print_select_option($options)
     echo $print_select;
 }
 
-/** 
- * Display a notice that can be dismissed 
+/**
+ * Display a notice that can be dismissed
  */
 add_action('admin_notices', 'frs_premium_notice');
-function frs_premium_notice() 
+function frs_premium_notice()
 {
     global $current_user ;
 
@@ -409,28 +409,28 @@ function frs_premium_notice()
     }
 
     /* Check that the user hasn't already clicked to ignore the message & if premium not installed */
-    if (! $is_ignore_notice  && ! function_exists("is_frs_premium_exist")) 
+    if (! $is_ignore_notice  && ! function_exists("is_frs_premium_exist"))
     {
         echo '<div class="updated"><p>';
 
-        printf(__('Unlock more preset , themes and layer editor. %1$s Get all features of Sangar Slider Pro ! %2$s Do not bug me again %3$s Not Now %4$s',FRS_VERSION), 
-            '<a href="http://sangarslider.com/" target="_blank">', 
-            '</a><span style="float:right;"><a href="?frs_premium_nag_ignore=forever" style="color:#a00;">', 
+        printf(__('Unlock more preset , themes and layer editor. %1$s Get all features of Sangar Slider Pro ! %2$s Do not bug me again %3$s Not Now %4$s',FRS_VERSION),
+            '<a href="http://sangarslider.com/" target="_blank">',
+            '</a><span style="float:right;"><a href="?frs_premium_nag_ignore=forever" style="color:#a00;">',
             '</a> <a href="?frs_premium_nag_ignore=later" class="button button-primary" style="margin:-5px -5px 0 5px;vertical-align:baseline;">',
             '</a></span>');
-        
+
         echo "</p></div>";
     }
 }
 
 add_action('admin_init', 'frs_premium_nag_ignore');
-function frs_premium_nag_ignore() 
+function frs_premium_nag_ignore()
 {
     global $current_user;
     $user_id = $current_user->ID;
 
     // If user clicks to ignore the notice, add that to their user meta
-    if (isset($_GET['frs_premium_nag_ignore']) && $_GET['frs_premium_nag_ignore'] == 'forever') 
+    if (isset($_GET['frs_premium_nag_ignore']) && $_GET['frs_premium_nag_ignore'] == 'forever')
     {
         update_user_meta($user_id, 'frs_premium_ignore_notice', 'forever');
 
@@ -442,12 +442,12 @@ function frs_premium_nag_ignore()
         echo "<h2>Loading...</h2>";
         exit();
     }
-    else if (isset($_GET['frs_premium_nag_ignore']) && $_GET['frs_premium_nag_ignore'] == 'later') 
+    else if (isset($_GET['frs_premium_nag_ignore']) && $_GET['frs_premium_nag_ignore'] == 'later')
     {
         update_user_meta($user_id, 'frs_premium_ignore_notice', 'later');
         update_user_meta($user_id, 'frs_premium_ignore_count_notice', 0);
 
-        $total_ignore_notice = get_user_meta($user_id, 'frs_premium_ignore_count_notice_total', true); 
+        $total_ignore_notice = get_user_meta($user_id, 'frs_premium_ignore_count_notice_total', true);
 
         if($total_ignore_notice == '') $total_ignore_notice = 0;
 
