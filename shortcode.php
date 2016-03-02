@@ -609,8 +609,7 @@ function pjc_gallery_print($attr)
 				{
 					$button_skin = explode('-PREMIUM', $postmeta['button_skin']);
 
-					$caption .= "<p style='padding-bottom:0px;text-align:$text_align' class='frs-caption-button {$button_skin[0]}'><a href='{$postmeta['button_href']}'>";
-					$caption .= "<span>{$postmeta['button_caption']}</span></a></p>";
+					$caption .= "<a class=\"button frs-caption-button {$button_skin[0]}\" style=\"text-align:$text_align\" href=\"{$postmeta['button_href']}\">{$postmeta['button_caption']}</a>";
 				}
 
 				$caption .= "</div>";
