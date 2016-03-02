@@ -1,7 +1,7 @@
-jQuery().ready(function() {
+jQuery(document).ready(function($) {
 
 	/* Post Meta */	
-    jQuery("#post").validate({
+    $("#post").validate({
 	  	rules: 
 	  	{
 	  		"tonjoo_frs_order_number": 
@@ -32,21 +32,21 @@ jQuery().ready(function() {
 	    	"tonjoo_frs_meta[button_caption]": 
 	    	{	    		
 	      		required: function(element) {
-	      			if(jQuery('#tonjoo-frs-show_button :selected').val() == "true") return true;
+	      			if($('#tonjoo-frs-show_button :selected').val() == "true") return true;
 	      			else return false;
 	      		}
 	    	},
 	    	"tonjoo_frs_meta[button_href]": 
 	    	{	    		
 	      		required: function(element) {
-	      			if(jQuery('#tonjoo-frs-show_button :selected').val() == "true") return true;
+	      			if($('#tonjoo-frs-show_button :selected').val() == "true") return true;
 	      			else return false;
 	      		}
 	    	},
 	    	"tonjoo_frs_meta[textbox_padding]": 
 	    	{	    		
 	      		required: function(element) {
-	      			if(jQuery('#tonjoo-frs-padding_type :selected').val() == "manual") return true;
+	      			if($('#tonjoo-frs-padding_type :selected').val() == "manual") return true;
 	      			else return false;
 	      		},
 	      		padding: true
@@ -54,20 +54,22 @@ jQuery().ready(function() {
 	  	},
 	  	invalidHandler: function(event, validator) {
 	  		/* tweak wp submit button */
-	  		jQuery('#publishing-action .spinner').css('display','none');
-	  		jQuery('#publishing-action .button-primary').removeClass('button-primary-disabled');
+	  		$('#publishing-action .spinner').css('display','none');
+	  		$('#publishing-action .button-primary').removeClass('button-primary-disabled');
 	  	}
 	});
 
 	/* Option Page */
-	jQuery("#frs-option-form").validate();
+	$("#frs-option-form").validate();
+
+	/* Validator addMethod */
+	$.validator.addMethod("color", function(value, element) {
+		return this.optional(element) || /^(#){1}([a-fA-F0-9]){6}$/.test(value);
+	}, "Please specify the correct color code (# + 6 digit)");
+
+	$.validator.addMethod("padding", function(value, element) {
+		return this.optional(element) || /^([0-9]+px ){3}([0-9]+px)$/.test(value);
+	}, "Invalid padding value");
 });
 
 
-jQuery.validator.addMethod("color", function(value, element) {
-  return this.optional(element) || /^(#){1}([a-fA-F0-9]){6}$/.test(value);
-}, "Please specify the correct color code (# + 6 digit)");
-
-jQuery.validator.addMethod("padding", function(value, element) {
-  return this.optional(element) || /^([0-9]+px ){3}([0-9]+px)$/.test(value);
-}, "Invalid padding value");

@@ -8,28 +8,15 @@ function pjc_jq_scripts()
 	wp_enqueue_script('jquery');
 
 	$file = dirname(__FILE__) . '/Fluid-Responsive-Slideshow.php';
-
 	$plugin_url = plugin_dir_url($file);
-
 	$frs_js = $plugin_url . "js/frs.js";
-
 	$images_loaded = $plugin_url . "js/imagesloaded.min.js";
-
 	$touchSwipe_js = $plugin_url . "js/jquery.touchSwipe.min.js";
 
-	wp_enqueue_style('OpenSans',"http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700",array(),FRS_VERSION);
-
-	wp_enqueue_script('fluid-responsive-slideshow', $frs_js,array(),FRS_VERSION);
-
+	wp_enqueue_style('OpenSans',FRS_HTTP_PROTO . "fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700",array(),FRS_VERSION);
+	wp_enqueue_script('fluid-responsive-slideshow',$frs_js,array(),FRS_VERSION);
 	wp_enqueue_script('images-loaded',$images_loaded,array(),FRS_VERSION);
-
-	wp_enqueue_script('touchSwipe_js', $touchSwipe_js,array(),FRS_VERSION);
-
-	global $is_IE;
-
-	if ( $is_IE ) {
-	    wp_enqueue_style( 'tonjoo_frs_ie', plugins_url(FRS_DIR_NAME."/css/ie.css"),array(),FRS_VERSION );
-	}
+	wp_enqueue_script('touchSwipe_js',$touchSwipe_js,array(),FRS_VERSION);
 }
 
 /**
@@ -42,24 +29,13 @@ function pjc_jq_scripts_admin()
 
 	$file = dirname(__FILE__) . '/Fluid-Responsive-Slideshow.php';
 	$plugin_url = plugin_dir_url($file);
-
 	$frs_js = $plugin_url . "js/frs.js";
-
 	$images_loaded = $plugin_url . "js/imagesloaded.min.js";
-
 	$touchSwipe_js = $plugin_url . "js/jquery.touchSwipe.min.js";
 
 	wp_enqueue_script('fluid-responsive-slideshow', $frs_js,array(),FRS_VERSION);
-
 	wp_enqueue_script('touchSwipe_js', $touchSwipe_js);
-
 	wp_enqueue_script('images-loaded',$images_loaded,array(),FRS_VERSION);
-
-	global $is_IE;
-
-	if ( $is_IE ) {
-	    wp_enqueue_style( 'tonjoo_frs_ie', plugins_url(FRS_DIR_NAME."/css/ie.css"),array(),FRS_VERSION );
-	}
 }
 
 function get_array_skins()
@@ -265,7 +241,7 @@ function pjc_gallery_print($attr)
 		$javascript = "<!-- Slideshow generated using Fluid-Responsive-Slideshow, https://www.tonjoostudio.com/addons/fluid-responsive-slideshow/ -->
 		<script type='text/javascript'>
 			jQuery(document).ready(function($) {
-				jQuery('#{$attr['slide_type_id']}').frs({
+				$('#{$attr['slide_type_id']}').frs({
 					animation : '{$options[$current]['animation']}', // horizontal-slide, vertical-slide, fade
 					animationSpeed :  {$options[$current]['animation_time']}, // how fast animtions are
 					timer :  {$options[$current]['timer']}, // true or false to have the timer
@@ -293,10 +269,11 @@ function pjc_gallery_print($attr)
 					continousSliding: false,
 					jsOnly: false
 				});
+
 				/**
 				 * touchSwipe
 				 */
-				jQuery('#$attr[slide_type_id]-slideshow .frs-slide-img').swipe(
+				$('#$attr[slide_type_id]-slideshow .frs-slide-img').swipe(
 				{
 			        swipeLeft:function(event, direction, distance, duration, fingerCount) {
 						$('#$attr[slide_type_id]-slideshow .frs-slider-nav .frs-arrow-right').click();

@@ -4,9 +4,10 @@
  * Free to use under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
  */
-(function (jQuery) {
 
-    jQuery.fn.frs = function (options) {
+;(function($) {
+
+    $.fn.frs = function(options) {
 
         //Defaults to extend options
         var defaults = {
@@ -24,7 +25,7 @@
             'bullets': false, // true or false to activate the bullet navigation
             'bulletThumbs': false, // thumbnails for the bullets
             'bulletThumbLocation': '', // location from this file where thumbs will be
-            'afterSlideChange': function () {}, // empty function 
+            'afterSlideChange': function() {}, // empty function 
             'navigationSmallTreshold': 650,
             'navigationSmall': false,
             'skinClass': 'default',
@@ -42,11 +43,11 @@
 
 
         // Extend those options
-        var options = jQuery.extend(defaults, options);
+        var options = $.extend(defaults, options);
 
         frs_id = "#" + this.attr("id") + "-slideshow";
        
-        return this.each(function () {
+        return this.each(function() {
 
             // ==============
             // ! SETUP   
@@ -62,9 +63,9 @@
                 timeout;
 
             // Initialize
-            var slideWrapper = jQuery(this).children('.frs-slide-img-wrapper').addClass('frs-slide-img-wrapper');
+            var slideWrapper = $(this).children('.frs-slide-img-wrapper').addClass('frs-slide-img-wrapper');
             var frs = slideWrapper.wrap('<div class="frs-slideshow-content" />').parent();            
-            var frsWrapper = frs.wrap('<div id="' + jQuery(this).attr("id") + '-slideshow" class="frs-wrapper ' + options.skinClass.toLowerCase() + '" />').parent();
+            var frsWrapper = frs.wrap('<div id="' + $(this).attr("id") + '-slideshow" class="frs-wrapper ' + options.skinClass.toLowerCase() + '" />').parent();
             var first_run = true
             var old_responsive_class = 'responsive-full'
             var responsiveClassLock = false
@@ -77,10 +78,10 @@
                 imgHeight = [],
                 imgCount = 0;
 
-            jQuery(slideWrapper.children()).imagesLoaded()
+            $(slideWrapper.children()).imagesLoaded()
                 .progress( function( instance, image ) {
                     // collecting slide img original size
-                    if(jQuery(image.img).parent().attr('class') == 'frs-slide-img')
+                    if($(image.img).parent().attr('class') == 'frs-slide-img')
                     {
                         imgWidth[imgCount] = image.img.width;
                         imgHeight[imgCount] = image.img.height;
@@ -90,30 +91,30 @@
                 })
                 .always( function( instance ) {
                     
-                    jQuery(window).trigger('resize.frs-slideshow-container', true);
+                    $(window).trigger('resize.frs-slideshow-container', true);
 
                     slideWrapper.fadeIn(function(){
-                        jQuery(this).css({"display": "block"});
+                        $(this).css({"display": "block"});
                     })
 
                     slideWrapper.children().fadeIn(function(){
-                        jQuery(this).css({"display": "block"});
+                        $(this).css({"display": "block"});
                     })
                     
                     frsWrapper.children('.frs-slideshow-content').fadeIn(function(){
-                        jQuery(this).css({"display": "block"});
+                        $(this).css({"display": "block"});
                     })
 
                     frsWrapper.children('.frs-timer').fadeIn(function(){
-                        jQuery(this).css({"display": "block"});
+                        $(this).css({"display": "block"});
                     })
 
                     frsWrapper.children('.frs-slider-nav').fadeIn(function(){
-                        jQuery(this).css({"display": "block"});
+                        $(this).css({"display": "block"});
                     })
 
                     frsWrapper.children('.frs-bullets-wrapper').fadeIn(function(){
-                        jQuery(this).css({"display": "block"});
+                        $(this).css({"display": "block"});
 
                         //unlock event in last displayed element
                         // if(options.timer) frs_slider_unlock();
@@ -154,7 +155,7 @@
             var slides = slideWrapper.children('div');
 
             // Count slide
-            slides.each(function (index,slide) {
+            slides.each(function(index,slide) {
 
                 numberSlides++;
             });
@@ -184,7 +185,7 @@
                         "display": "block",
                         "left": 0
                     })
-                    .fadeIn(function () {
+                    .fadeIn(function() {
                         //brings in all other slides IF css declares a display: none
                         slides.css({
                             "display": "block"
@@ -227,7 +228,7 @@
             {
                 var images = slideWrapper.find('.frs-slide-img').children('img');
 
-                jQuery.each(images,function(index){
+                $.each(images,function(index){
                     var width = frsWidth;
                     var height = getImgHeight(width,index);
 
@@ -236,7 +237,7 @@
                         var curImgWidth = getImgWidth(frsHeight,index);
                         var curDiffWidth = (curImgWidth - width) * -1;
 
-                        jQuery(this).css({
+                        $(this).css({
                             'height': frsHeight + 'px',
                             'width': curImgWidth + 'px',
                             'max-height': frsHeight + 'px',
@@ -245,7 +246,7 @@
                         })
 
                         // neutralize
-                        jQuery(this).css({
+                        $(this).css({
                             'margin-top': ''
                         })
                     }
@@ -253,15 +254,15 @@
                     {
                         var diff = frsHeight - height;
 
-                        jQuery(this).css('margin-top', (diff / 2) + 'px');
+                        $(this).css('margin-top', (diff / 2) + 'px');
 
-                        jQuery(this).css({
+                        $(this).css({
                             'width': width + 'px',
                             'max-width': width + 'px'
                         })
 
                         // neutralize
-                        jQuery(this).css({
+                        $(this).css({
                             'height': 'auto',
                             'max-height':'none',
                             'margin-left': ''
@@ -269,7 +270,7 @@
                     }
 
                     // width                    
-                    jQuery(this).parent().width(width);                    
+                    $(this).parent().width(width);                    
                 });
             }
 
@@ -399,7 +400,7 @@
                  *
                  * } else if (timer.is(':hidden')) {
                  *       timerRunning = true;
-                 *       clock = setInterval(function (e) {
+                 *       clock = setInterval(function(e) {
                  *
                  *           shift("next");
                  *
@@ -410,7 +411,7 @@
                 } else if(! css3support()) {
                     timerRunning = true;
                     pause.removeClass('frs-timer-active')
-                    clock = setInterval(function (e) {
+                    clock = setInterval(function(e) {
                 
                         shift("next");
                 
@@ -418,7 +419,7 @@
                 } else {
                     timerRunning = true;
                     pause.removeClass('frs-timer-active')
-                    clock = setInterval(function (e) {
+                    clock = setInterval(function(e) {
 
                         var degreeCSS = "rotate(" + degrees + "deg)"
                         rotator.css('-' + vendorPrefix + '-transform', degreeCSS);
@@ -461,14 +462,14 @@
                 var timer = frsWrapper.children('div.frs-timer'),
                     timerRunning;
                 if (timer.length != 0) {
-                    var rotator = jQuery(frs_id + ' div.frs-timer span.frs-timer-rotator'),
-                        mask = jQuery(frs_id + ' div.frs-timer span.frs-timer-mask'),
-                        mask_turn = jQuery(frs_id + ' div.frs-timer span.frs-timer-mask-turn'),
-                        pause = jQuery(frs_id + ' div.frs-timer span.frs-timer-pause'),
+                    var rotator = $(frs_id + ' div.frs-timer span.frs-timer-rotator'),
+                        mask = $(frs_id + ' div.frs-timer span.frs-timer-mask'),
+                        mask_turn = $(frs_id + ' div.frs-timer span.frs-timer-mask-turn'),
+                        pause = $(frs_id + ' div.frs-timer span.frs-timer-pause'),
                         degrees = 0,
                         clock;
                     startCfrs_slider_lock();
-                    timer.click(function () {
+                    timer.click(function() {
                         if (!timerRunning) {
                             startCfrs_slider_lock();
                         } else {
@@ -477,15 +478,15 @@
                     });
                     if (options.startClockOnMouseOut) {
                         var outTimer;
-                        frsWrapper.mouseleave(function () {
+                        frsWrapper.mouseleave(function() {
 
-                            outTimer = setTimeout(function () {
+                            outTimer = setTimeout(function() {
                                 if (!timerRunning) {
                                     startCfrs_slider_lock();
                                 }
                             }, options.startClockOnMouseOutAfter)
                         })
-                        frsWrapper.mouseenter(function () {
+                        frsWrapper.mouseenter(function() {
                             clearTimeout(outTimer);
                         })
                     }
@@ -494,7 +495,7 @@
 
             // Pause Timer on hover
             if (options.pauseOnHover) {
-                frsWrapper.mouseenter(function () {
+                frsWrapper.mouseenter(function() {
 
                     stop_slider_lock();
                 });
@@ -514,11 +515,11 @@
                 frsWrapper.append(directionalNavHTML);
                 var leftBtn = frsWrapper.children('div.frs-slider-nav').children('span.frs-arrow-left'),
                     rightBtn = frsWrapper.children('div.frs-slider-nav').children('span.frs-arrow-right');
-                leftBtn.click(function () {
+                leftBtn.click(function() {
                     stop_slider_lock();
                     shift("prev");
                 });
-                rightBtn.click(function () {
+                rightBtn.click(function() {
                     stop_slider_lock();
                     shift("next")
                 });
@@ -526,8 +527,8 @@
 
             if (options.navigationSmall) {
 
-                jQuery(window).resize(function () {
-                    if (jQuery(window).width() < options.navigationSmallTreshold) {
+                $(window).resize(function() {
+                    if ($(window).width() < options.navigationSmallTreshold) {
                         frs.siblings("div.frs-slider-nav").addClass('small')
                     } else {
                         frs.siblings("div.frs-slider-nav").removeClass('small')
@@ -558,11 +559,11 @@
 
                 var bullets = frsWrapper.children('ul.frs-bullets');
                 for (i = 0; i < numberSlides; i++) {
-                    var liMarkup = jQuery('<li class="frs-slideshow-nav-bullets"></li>'); // If you want default numbering, add: (i + 1)
+                    var liMarkup = $('<li class="frs-slideshow-nav-bullets"></li>'); // If you want default numbering, add: (i + 1)
                     if (options.bulletThumbs) {
                         var thumbName = slides.eq(i).data('thumb');
                         if (thumbName) {
-                            var liMarkup = jQuery('<li class="has-thumb">' + i + '</li>')
+                            var liMarkup = $('<li class="has-thumb">' + i + '</li>')
                             liMarkup.css({
                                 "background": "url(" + options.bulletThumbLocation + thumbName + ") no-repeat"
                             });
@@ -570,9 +571,9 @@
                     }
                     frsWrapper.children('ul.frs-bullets').append(liMarkup);
                     liMarkup.data('index', i);
-                    liMarkup.click(function () {
+                    liMarkup.click(function() {
                         stop_slider_lock();
-                        shift(jQuery(this).data('index'));
+                        shift($(this).data('index'));
                     });
                 }
                
@@ -627,18 +628,18 @@
                 sbullets.children('li.frs-slideshow-nav-bullets').css('width',each_width + 'px');                
                 sbullets.css('width', total_width + 'px');
 
-                sbullets.find('li').each(function () {
+                sbullets.find('li').each(function() {
                     bulletsWalkingWidth += each_width;
 
                     if (bulletsWalkingWidth + each_width > bulletsWidth) 
                     {
-                        bulletsNextChild = jQuery(this).index();
+                        bulletsNextChild = $(this).index();
                         bulletsMaxShowedIndex = bulletsNextChild;
                     }
                     
                     if (bulletsWalkingWidth > bulletsWidth) 
                     {
-                        jQuery(this).addClass('frs-bullet-sliding-next');
+                        $(this).addClass('frs-bullet-sliding-next');
                         bulletsOffsetWidth = bulletsWalkingWidth - bulletsWidth;
 
                         /* detect if bullets offset is too large */
@@ -970,7 +971,7 @@
 
                     if(options.heightResize==true){
 
-                    jQuery(slides).parent('.frs-slideshow-content').animate(
+                    $(slides).parent('.frs-slideshow-content').animate(
                         {'height':frsHeight},
                         options.animationSpeed)
                     }
@@ -1228,7 +1229,7 @@
             // ====================================
             // ! RESIZE WINDOWS EVENT: RESPONSIVE   
             // ====================================            
-            jQuery(window).bind('resize.frs-slideshow-container', function(event, force) {
+            $(window).bind('resize.frs-slideshow-container', function(event, force) {
                 calculateHeightWidth();
 
                 /**

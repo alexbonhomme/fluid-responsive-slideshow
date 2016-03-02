@@ -126,5 +126,7 @@
 }
 
 .settings-container .sidebar-name-arrow:before {
-    width: 10px;
+    width: inherit;
+    right: 0px !important;
+    padding: 8px 10px !important;
 }

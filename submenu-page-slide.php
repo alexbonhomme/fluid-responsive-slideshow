@@ -116,7 +116,7 @@ $zeroHide = '';
 			 * - premium_exist
 			 */
 
-			jQuery(function(){					
+			jQuery(function($){					
 				var pluginName = "frs";
 				var url = 'https://tonjoostudio.com/jsonp/?promo=get&plugin=' + pluginName;
 				var promoFirst = new Array();
@@ -133,14 +133,14 @@ $zeroHide = '';
 					return i === -1 ? false : i;
 				}
 
-				jQuery.ajax({url: url, dataType:'jsonp'}).done(function(data){
+				$.ajax({url: url, dataType:'jsonp'}).done(function(data){
 					
 					if(typeof data =='object')
 					{
 						var fristImg, fristUrl;
 
 					    // looping jsonp object
-						jQuery.each(data, function(index, value){
+						$.each(data, function(index, value){
 
 							<?php if(! function_exists('is_frs_premium_exist')): ?>
 
@@ -193,12 +193,12 @@ $zeroHide = '';
 						});
 
 						//promo_1
-						jQuery("#promo_1 img").attr("src",promoFirst['img']);
-						jQuery("#promo_1 a").attr("href",promoFirst['url']);
+						$("#promo_1 img").attr("src",promoFirst['img']);
+						$("#promo_1 a").attr("href",promoFirst['url']);
 
 						//promo_2
-						jQuery("#promo_2 img").attr("src",promoSecond['img']);
-						jQuery("#promo_2 a").attr("href",promoSecond['url']);
+						$("#promo_2 img").attr("src",promoSecond['img']);
+						$("#promo_2 a").attr("href",promoSecond['url']);
 					}
 				});
 			});

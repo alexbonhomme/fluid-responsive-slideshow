@@ -75,8 +75,11 @@ if($_POST && isset($_POST['pjc_slideshow_options']))
 
 	.meta-subtitle {
 	    margin: 0px -22px !important;
-	    border-top:1px solid rgb(238, 238, 238);
-	    background-color:#f6f6f6;
+		border-top: 1px solid #EEE;
+		border-bottom: 1px solid #EEE;
+		background-color: #F6F6F6;
+		padding: 10px;
+		font-size: 14px;		
 	}
 
 	@media (max-width: 767px) {
@@ -565,7 +568,7 @@ jQuery(document).ready(function($){
 				    editor.getSession().on('change', function(e) {
 				    	var code = editor.getSession().getValue();
 
-				    	jQuery("#ace_editor_value").val(code);
+				    	$("#ace_editor_value").val(code);
 					});
 				});
 			</script>
@@ -644,7 +647,7 @@ jQuery(document).ready(function($){
 			 * - premium_exist
 			 */
 
-			jQuery(function(){					
+			jQuery(function($){					
 				var pluginName = "frs";
 				var url = 'https://tonjoostudio.com/jsonp/?promo=get&plugin=' + pluginName;
 				var promoFirst = new Array();
@@ -661,14 +664,14 @@ jQuery(document).ready(function($){
 					return i === -1 ? false : i;
 				}
 
-				jQuery.ajax({url: url, dataType:'jsonp'}).done(function(data){
+				$.ajax({url: url, dataType:'jsonp'}).done(function(data){
 					
 					if(typeof data =='object')
 					{
 						var fristImg, fristUrl;
 
 					    // looping jsonp object
-						jQuery.each(data, function(index, value){
+						$.each(data, function(index, value){
 
 							<?php if(! function_exists('is_frs_premium_exist')): ?>
 
@@ -721,12 +724,12 @@ jQuery(document).ready(function($){
 						});
 
 						//promo_1
-						jQuery("#promo_1 img").attr("src",promoFirst['img']);
-						jQuery("#promo_1 a").attr("href",promoFirst['url']);
+						$("#promo_1 img").attr("src",promoFirst['img']);
+						$("#promo_1 a").attr("href",promoFirst['url']);
 
 						//promo_2
-						jQuery("#promo_2 img").attr("src",promoSecond['img']);
-						jQuery("#promo_2 a").attr("href",promoSecond['url']);
+						$("#promo_2 img").attr("src",promoSecond['img']);
+						$("#promo_2 a").attr("href",promoSecond['url']);
 					}
 				});
 			});

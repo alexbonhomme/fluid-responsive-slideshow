@@ -97,11 +97,9 @@ function tonjoo_slideshow_meta( $post )
 
     ?>
     <script type="text/javascript">
-
-        jQuery(document).ready(function(){
-            jQuery('INPUT.minicolors').minicolors();
-        });
-
+        jQuery(document).ready(function($){
+            $('INPUT.minicolors').minicolors();
+        })
     </script>
 
     <style>
@@ -143,7 +141,6 @@ function tonjoo_slideshow_meta( $post )
                     display:none;
                 }";
 
-
             if($postmeta['padding_type']=='auto')
                 echo "
                 #textbox_padding{
@@ -178,8 +175,11 @@ function tonjoo_slideshow_meta( $post )
 
         .meta-subtitle {
             margin: 0px -22px !important;
-            border-top:1px solid rgb(238, 238, 238);
-            background-color:#f6f6f6;
+            border-top: 1px solid #EEE;
+            border-bottom: 1px solid #EEE;
+            background-color: #F6F6F6;
+            padding: 10px;
+            font-size: 14px;
         }
 
         @media (max-width: 767px) {
@@ -546,7 +546,7 @@ function tonjoo_slideshow_meta( $post )
                                                 ),
                                             '3' => array(
                                                     'value' =>  'css',
-                                                    'label' =>  'CSS based'
+                                                    'label' =>  'CSS Based'
                                                 )
                                             );
 

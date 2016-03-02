@@ -88,7 +88,6 @@
 	bottom: 0;
 	overflow: auto;
 	min-height: 300px;
-	box-shadow: 0 5px 15px rgba(0,0,0,.7);
 	background: #fcfcfc;
 
 }
@@ -136,6 +135,10 @@
 	padding:20px;	
 }
 
+#frs-modal-form {
+	background: #fff;
+}
+
 .frs-table-left{
 	position: absolute;
 	top: 0;
@@ -144,6 +147,11 @@
 	width: 550px;
 	z-index: 150;
 	padding:20px;
+	background: #fff;
+}
+
+.frs-table-left th {
+	font-size: 14px;
 }
 
 .frs-table-left .minicolors-swatch,
@@ -223,11 +231,10 @@ input[name='title']{
 	display: block;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 13px;
-	height: 824px;
 	left: 0px;
 	line-height: 18.200000762939453px;
 	min-height: 360px;
-	opacity: 0.699999988079071;
+	opacity: 0.8;
 	outline-color: rgb(68, 68, 68);
 	outline-style: none;
 	outline-width: 0px;
@@ -459,4 +466,21 @@ label {
 	display: inline;
 	margin-bottom: 20px;
 	margin-top: 10px;
+}
+
+#frs_ajax_on_progress {
+	background: #FFF url("../assets/loading-small.gif") no-repeat scroll 100px 50%;
+	position: fixed;
+	display: block;
+	background-color: #fff;
+	padding: 35px 100px;
+	padding-left: 135px;
+	font-size: 14px;
+	border: 2px solid #2EA2CC;
+	box-shadow: rgba(0,0,0,0.3) 0px 0px 10px;
+	left: 50%;
+	top: 50%;
+	margin-left: -170px;
+	margin-top: -46px;
+	z-index: 999999;
 }

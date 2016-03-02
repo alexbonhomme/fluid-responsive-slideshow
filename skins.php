@@ -22,7 +22,7 @@ if($skin_name == 'frs-skin-elegant')
             $nth_child = $nth_child." + li";
         }
 
-        $addon_script .= "jQuery('#$attr[slide_type_id]-slideshow .frs-bullets-wrapper li.frs-slideshow-nav-bullets').eq(". ($i - 1) .").html(\"$i\");";
+        $addon_script .= "$('#$attr[slide_type_id]-slideshow .frs-bullets-wrapper li.frs-slideshow-nav-bullets').eq(". ($i - 1) .").html(\"$i\");";
 
         $i++;
     }

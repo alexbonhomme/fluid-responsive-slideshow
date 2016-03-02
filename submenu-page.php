@@ -30,9 +30,9 @@ function pjc_slideshow_tab($current = 'plugin')
 	?>
 
 	<script type="text/javascript">
-		jQuery(document).ready(function() {
-			jQuery("#button-slide-type").click(function(){
-				var selected_slide = jQuery("#select-slide-type").val();
+		jQuery(document).ready(function($) {
+			$("#button-slide-type").click(function(){
+				var selected_slide = $("#select-slide-type").val();
 
 				self.location.href = selected_slide;
 			});
@@ -106,9 +106,12 @@ function pjc_slideshow_tab($current = 'plugin')
 		<!-- <p>You can add, edit, delete and re order your slide on this page. Drag the images to change slide ordering</p> -->
 		<p>
 			The configuration page. You can add, edit, delete or re-order your slideshow. &nbsp;&nbsp;
-			<a href="javascript:;" class="button button-orange button-frs" onclick="javascript:startTour();">How to use ?</a>
+			<a href="javascript:;" class="button button-orange button-frs" id="frs-how-to-use">How to use ?</a>
 			<a href="http://wordpress.org/support/view/plugin-reviews/fluid-responsive-slideshow?rate=5#postform" target="_blank" style="margin-left:10px;">Enjoy the plugin?, rate us!</a>
 		</p>
+
+		<!-- Progress Notification -->
+		<div id="frs_ajax_on_progress">On Progress..</div>
 
 		<!-- BEGIN TAB SLIDE AND OPTIONS -->
 		<h2 class="nav-tab-wrapper">
